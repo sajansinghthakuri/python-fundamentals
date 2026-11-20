@@ -62,3 +62,31 @@ inspect_api(
     "https://httpbin.org/get",
     params={"course": "Python III", "day": "1"},
 )
+inspect_api(
+    "HTTP Error Test",
+    "https://jsonplaceholder.typicode.com/invalid-endpoint",
+)
+# Timeout Error Test
+print("\n--- Timeout Error Test ---")
+
+try:
+    requests.get(
+        "https://httpbin.org/delay/3",
+        timeout=1,
+    )
+
+except requests.exceptions.Timeout:
+    print("Error: Request timed out.")
+
+
+# Connection Error Test
+print("\n--- Connection Error Test ---")
+
+try:
+    requests.get(
+        "https://this-domain-does-not-exist.invalid",
+        timeout=5,
+    )
+
+except requests.exceptions.ConnectionError:
+    print("Error: Could not connect to the server.")
